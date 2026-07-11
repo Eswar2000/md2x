@@ -52,6 +52,8 @@ For the exact, element-by-element mapping, see
 - **Markdown → `.docx`** — library + CLI, with the full feature set above.
 - **LaTeX math** — inline and display equations as native Word math.
 - **Image embedding** — local, remote, and `data:` URI images.
+- **MCP server** — `md2x-mcp` exposes md2x as Model Context Protocol tools, so any
+  MCP-capable AI can generate `.docx` files straight from a chat.
 
 ### Planned
 
@@ -59,4 +61,5 @@ For the exact, element-by-element mapping, see
 - **Mermaid diagrams** — render fenced ` ```mermaid ` blocks to images.
 - **Custom templates / branding** — fonts, colors, headers/footers, cover pages.
 - **Web demo** — drag-and-drop with live preview.
-- **Packaged agent SKILL** — so any AI assistant can export on demand.
+- **Bundled agent Skill** — a self-contained Skill package (e.g. Claude Skills)
+  that vendors md2x for code-execution agents, no install required.

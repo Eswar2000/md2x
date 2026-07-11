@@ -63,6 +63,31 @@ keywords: finance, q3
 ---
 ```
 
+## Use it from an AI chat (MCP)
+
+md2x ships an [MCP](https://modelcontextprotocol.io) server, so any MCP-capable
+assistant (Claude Desktop, VS Code, Cursor, Cline, …) can turn the Markdown it
+writes into a `.docx` on demand — you just chat ("write a proposal and save it as
+a Word doc") and the file appears.
+
+Point your client at the server; `npx` fetches it, so there's nothing to install:
+
+```jsonc
+{
+  "mcpServers": {
+    "md2x": { "command": "npx", "args": ["-y", "md2x-mcp"] }
+  }
+}
+```
+
+It exposes two tools:
+
+- **`create_docx`** — `{ markdown, outputPath?, theme? }`. Converts the Markdown
+  and saves a `.docx`, returning the saved path. `outputPath` may be absolute or
+  relative to the current working directory (`~` is expanded); it defaults to
+  `document.docx` in the current directory.
+- **`list_themes`** — lists the available themes (`clean`, `compact`, `serif`).
+
 ## Supported Markdown
 
 md2x maps Markdown — plus a handful of inline HTML tags — onto **native Word

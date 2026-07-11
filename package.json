@@ -31,7 +31,8 @@
     "zero-dependencies"
   ],
   "bin": {
-    "md2x": "./dist/cli.js"
+    "md2x": "./dist/cli.js",
+    "md2x-mcp": "./dist/mcp.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -54,6 +55,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "commander": "^12.1.0",
     "docx": "^9.0.2",
     "lowlight": "^3.3.0",
@@ -67,7 +69,8 @@
     "temml": "^0.13.3",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "yaml": "^2.5.1"
+    "yaml": "^2.5.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
