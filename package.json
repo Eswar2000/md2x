@@ -1,0 +1,60 @@
+{
+  "name": "md2x",
+  "version": "0.1.0",
+  "description": "Convert AI-generated Markdown into polished documents (docx today, more soon). Zero native dependencies, runs anywhere.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "docx",
+    "convert",
+    "pandoc-alternative",
+    "ai",
+    "export",
+    "document"
+  ],
+  "bin": {
+    "md2x": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "docx": "^9.0.2",
+    "mdast-util-to-string": "^4.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^22.7.4",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
