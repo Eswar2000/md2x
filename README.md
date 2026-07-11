@@ -100,6 +100,7 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 | `<mark>text</mark>` | Highlighted (yellow) run |
 | `<br>` | Hard line break within a paragraph |
 | `:emoji:` shortcodes | Converted to Unicode emoji (`:rocket:` → 🚀) |
+| `$inline$` / `$$block$$` math | **Real Word equations** (LaTeX → OMML); inline within the line, display centered on its own line |
 | YAML frontmatter | Standard keys (`title`, `author`, `subject`, `keywords`, `description`, `revision`, `lastModifiedBy`) become Word document properties; any other keys become **custom** document properties |
 
 ### Notes on a few of these
@@ -147,16 +148,22 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
   python-repl, r, ruby, rust, scss, shell, sql, swift, typescript, vbnet, wasm,
   xml, and yaml. Common aliases work too (`ts`, `js`, `py`, `sh`, `yml`).
   Unknown or unlabeled blocks fall back to plain monospaced text.
+- **Math.** Inline `$…$` and display `$$…$$` LaTeX are converted to native,
+  editable Word equations (LaTeX → MathML → OMML). Unsupported LaTeX degrades to
+  monospaced text rather than failing.
 
 A complete, self-contained document that exercises every row above lives in
-[examples/example-1/sample.md](examples/example-1/sample.md), and a
-code-heavy document that shows off syntax highlighting across several languages
-lives in [examples/example-2/rate-limiting.md](examples/example-2/rate-limiting.md).
-Convert either to see the full picture:
+[examples/example-1/sample.md](examples/example-1/sample.md); a code-heavy
+document that shows off syntax highlighting across several languages lives in
+[examples/example-2/rate-limiting.md](examples/example-2/rate-limiting.md); and a
+math-heavy science write-up is in
+[examples/example-3/special-relativity.md](examples/example-3/special-relativity.md).
+Convert any of them to see the full picture:
 
 ```bash
 md2x examples/example-1/sample.md -o examples/example-1/sample.docx
 md2x examples/example-2/rate-limiting.md -o examples/example-2/rate-limiting.docx
+md2x examples/example-3/special-relativity.md -o examples/example-3/special-relativity.docx
 ```
 
 ## Development

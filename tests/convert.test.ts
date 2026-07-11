@@ -49,6 +49,25 @@ describe("convert -> docx", () => {
     expect(buffer.length).toBeGreaterThan(0);
   });
 
+  it("handles math, callouts and emoji without throwing", async () => {
+    const md = [
+      "# Doc",
+      "",
+      "Inline $a^2 + b^2 = c^2$ math.",
+      "",
+      "$$",
+      "\\int_0^1 x^2 \\, dx = \\frac{1}{3}",
+      "$$",
+      "",
+      "> [!NOTE]",
+      "> A callout with a rocket :rocket:.",
+    ].join("\n");
+
+    const { buffer } = await convert(md, { format: "docx" });
+    expect(buffer.subarray(0, 4).equals(ZIP_MAGIC)).toBe(true);
+    expect(buffer.length).toBeGreaterThan(0);
+  });
+
   it("throws on an unknown theme", async () => {
     await expect(convert("# hi", { theme: "does-not-exist" })).rejects.toThrow(/Unknown theme/);
   });

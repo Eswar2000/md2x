@@ -1,6 +1,7 @@
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGemoji from "remark-gemoji";
 import { parse as parseYaml } from "yaml";
@@ -16,6 +17,7 @@ export interface ParsedMarkdown {
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
+  .use(remarkMath)
   .use(remarkGemoji)
   .use(remarkFrontmatter, ["yaml"]);
 
