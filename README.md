@@ -99,7 +99,8 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 | `<sup>x</sup>` | Superscript (e.g. 2³) |
 | `<mark>text</mark>` | Highlighted (yellow) run |
 | `<br>` | Hard line break within a paragraph |
-| YAML frontmatter | Document metadata (title, author, subject, keywords) |
+| `:emoji:` shortcodes | Converted to Unicode emoji (`:rocket:` → 🚀) |
+| YAML frontmatter | Standard keys (`title`, `author`, `subject`, `keywords`, `description`, `revision`, `lastModifiedBy`) become Word document properties; any other keys become **custom** document properties |
 
 ### Notes on a few of these
 

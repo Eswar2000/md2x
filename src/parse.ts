@@ -2,6 +2,7 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGemoji from "remark-gemoji";
 import { parse as parseYaml } from "yaml";
 import type { Root, Yaml } from "mdast";
 import type { DocMeta } from "./types.js";
@@ -15,6 +16,7 @@ export interface ParsedMarkdown {
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
+  .use(remarkGemoji)
   .use(remarkFrontmatter, ["yaml"]);
 
 /**
@@ -22,7 +24,9 @@ const processor = unified()
  * Frontmatter is left in the tree as a `yaml` node; we read it out into meta.
  */
 export function parseMarkdown(markdown: string): ParsedMarkdown {
-  const tree = processor.parse(markdown) as Root;
+  // `parse` only runs tokenizer-level extensions (gfm, frontmatter); `runSync`
+  // applies transformer plugins such as remark-gemoji to the parsed tree.
+  const tree = processor.runSync(processor.parse(markdown)) as Root;
 
   let meta: DocMeta = {};
   const yamlNode = tree.children.find((n): n is Yaml => n.type === "yaml");

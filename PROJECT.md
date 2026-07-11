@@ -38,7 +38,8 @@ One core engine, many surfaces:
 - Image embedding — local paths, `http(s)` URLs, and `data:` URIs, auto-scaled
 - Footnotes collected into an in-body **Notes** section with clickable markers
 - Native, pre-populated **Table of Contents** field
-- YAML frontmatter → document metadata
+- Emoji shortcodes (`:rocket:` → 🚀)
+- YAML frontmatter → standard *and* custom Word document properties
 - Output format: `docx`
 - Themes: `clean`, `compact`, `serif`
 

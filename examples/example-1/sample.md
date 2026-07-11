@@ -3,7 +3,10 @@ title: The Chemistry of Bread
 author: Dana Whitfield
 subject: A field guide to fermentation, gluten, and a reliable country loaf
 keywords: bread, baking, fermentation, sourdough, gluten
+description: A hands-on guide to why bread rises and how to bake a reliable country loaf.
 date: 2026-07-11
+category: Baking
+difficulty: Intermediate
 ---
 
 # The Chemistry of Bread
@@ -262,5 +265,5 @@ If you want to go deeper, three references are worth your time:
 
 ---
 
-Written with `md2x`.\
+Written with `md2x`. :bread:\
 Bake often, weigh everything, and trust your dough over the clock.

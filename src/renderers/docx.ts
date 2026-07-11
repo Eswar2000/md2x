@@ -131,6 +131,10 @@ class DocxRenderer {
       creator: this.meta.author,
       subject: this.meta.subject,
       keywords: this.meta.keywords?.join(", "),
+      description: asString(this.meta.description),
+      lastModifiedBy: asString(this.meta.lastModifiedBy),
+      revision: typeof this.meta.revision === "number" ? this.meta.revision : undefined,
+      customProperties: buildCustomProperties(this.meta),
       numbering: { config: this.numbering },
       styles: {
         default: {
@@ -748,6 +752,40 @@ function isTocHeading(node: Heading): boolean {
 /** Word-safe bookmark name for the nth note in the generated Notes section. */
 function noteAnchor(n: number): string {
   return `_md2x_note_${n}`;
+}
+
+/** Coerce a metadata value to a trimmed string, or undefined if empty. */
+function asString(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim() ? value : undefined;
+}
+
+/** Frontmatter keys already mapped to standard Word document properties. */
+const STANDARD_META_KEYS = new Set([
+  "title",
+  "author",
+  "subject",
+  "keywords",
+  "description",
+  "lastModifiedBy",
+  "revision",
+]);
+
+/**
+ * Map any leftover frontmatter fields (anything beyond the standard properties)
+ * to Word custom document properties, coercing values to strings.
+ */
+function buildCustomProperties(meta: DocMeta): { name: string; value: string }[] {
+  const props: { name: string; value: string }[] = [];
+  for (const [key, value] of Object.entries(meta)) {
+    if (STANDARD_META_KEYS.has(key) || value === null || value === undefined) continue;
+    const str = Array.isArray(value)
+      ? value.join(", ")
+      : typeof value === "object"
+        ? JSON.stringify(value)
+        : String(value);
+    if (str) props.push({ name: key, value: str });
+  }
+  return props;
 }
 
 /** GitHub-style callout styles keyed by alert type. Colors follow GitHub's palette. */
