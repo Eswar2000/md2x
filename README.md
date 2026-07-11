@@ -80,7 +80,7 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 | `*italic*` / `_italic_` | *Italic* run |
 | `~~strikethrough~~` | Strikethrough run |
 | `` `inline code` `` | Monospace run with light shading |
-| ```` ``` fenced blocks ```` | Shaded, monospaced code block (tabs and indentation preserved) |
+| ```` ``` fenced blocks ```` | Shaded, monospaced code block with **syntax highlighting** for 37 languages (tabs and indentation preserved) |
 | `- item` / `* item` | Bulleted list (nesting → tighter indented sub-bullets: •, ◦, ▪) |
 | `1. item` | Numbered list with real Word numbering (nesting supported) |
 | Ordered list containing bullets (or vice-versa) | Mixed list — numbering and bullets nest together |
@@ -138,12 +138,24 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
   icon-prefixed title.
 - **Indentation.** Inside code blocks, tabs and spaces are preserved verbatim.
   In lists, indentation controls nesting depth.
+- **Code highlighting.** Fenced blocks are syntax-highlighted from their language
+  tag (```` ```ts ````, ```` ```python ````, ```` ```sql ````, …) using
+  highlight.js's common set of **37 languages**: arduino, bash, c, cpp, csharp,
+  css, diff, go, graphql, ini, java, javascript, json, kotlin, less, lua,
+  makefile, markdown, objectivec, perl, php, php-template, plaintext, python,
+  python-repl, r, ruby, rust, scss, shell, sql, swift, typescript, vbnet, wasm,
+  xml, and yaml. Common aliases work too (`ts`, `js`, `py`, `sh`, `yml`).
+  Unknown or unlabeled blocks fall back to plain monospaced text.
 
 A complete, self-contained document that exercises every row above lives in
-[examples/sample.md](examples/sample.md). Convert it to see the full picture:
+[examples/example-1/sample.md](examples/example-1/sample.md), and a
+code-heavy document that shows off syntax highlighting across several languages
+lives in [examples/example-2/rate-limiting.md](examples/example-2/rate-limiting.md).
+Convert either to see the full picture:
 
 ```bash
-md2x examples/sample.md -o examples/sample.docx
+md2x examples/example-1/sample.md -o examples/example-1/sample.docx
+md2x examples/example-2/rate-limiting.md -o examples/example-2/rate-limiting.docx
 ```
 
 ## Development

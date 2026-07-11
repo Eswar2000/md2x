@@ -37,7 +37,10 @@ import type {
   TableCell as MdTableCell,
 } from "mdast";
 import { visit } from "unist-util-visit";
+import { common, createLowlight } from "lowlight";
 import type { DocMeta, Theme } from "../types.js";
+
+const lowlight = createLowlight(common);
 
 /** Inline formatting flags threaded through phrasing content. */
 interface InlineStyle {
@@ -507,19 +510,30 @@ class DocxRenderer {
   }
 
   private renderCode(node: Code): Paragraph[] {
-    const lines = node.value.split("\n");
+    // Tokenize into colored segments, then lay out one shaded paragraph per line.
+    const lines = highlightCodeLines(node.value, node.lang);
     return lines.map(
-      (line, i) =>
+      (tokens, i) =>
         new Paragraph({
           shading: { type: ShadingType.CLEAR, fill: this.theme.codeBackground, color: "auto" },
           spacing: { after: i === lines.length - 1 ? 160 : 0, before: i === 0 ? 80 : 0 },
-          children: [
-            new TextRun({
-              text: line.length ? line : " ",
-              font: this.theme.monoFont,
-              size: this.theme.bodySize - 2,
-            }),
-          ],
+          children: tokens.length
+            ? tokens.map(
+                (token) =>
+                  new TextRun({
+                    text: token.text,
+                    font: this.theme.monoFont,
+                    size: this.theme.bodySize - 2,
+                    color: token.color,
+                  }),
+              )
+            : [
+                new TextRun({
+                  text: " ",
+                  font: this.theme.monoFont,
+                  size: this.theme.bodySize - 2,
+                }),
+              ],
         }),
     );
   }
@@ -770,6 +784,106 @@ function detectCallout(
     type,
     bodyChildren: [...rebuiltFirst, ...node.children.slice(1)] as RootContent[],
   };
+}
+
+/** A colored run of code text produced by the syntax highlighter. */
+interface CodeToken {
+  text: string;
+  color?: string;
+}
+
+/** hast node shapes we care about when walking highlight.js output. */
+interface HastNode {
+  type: string;
+  value?: string;
+  properties?: { className?: unknown };
+  children?: HastNode[];
+}
+
+/**
+ * highlight.js scope → hex color (GitHub-light-ish palette that reads well on
+ * the light code background used by every theme).
+ */
+const CODE_COLORS: Record<string, string> = {
+  keyword: "CF222E",
+  built_in: "0550AE",
+  type: "953800",
+  literal: "0550AE",
+  number: "0550AE",
+  string: "0A3069",
+  regexp: "0A3069",
+  symbol: "0550AE",
+  comment: "6E7781",
+  doctag: "6E7781",
+  meta: "0550AE",
+  title: "8250DF",
+  section: "0550AE",
+  function: "8250DF",
+  attr: "0550AE",
+  attribute: "0550AE",
+  property: "0550AE",
+  variable: "953800",
+  tag: "116329",
+  name: "116329",
+  "selector-tag": "116329",
+  "selector-class": "953800",
+  "selector-id": "0550AE",
+  bullet: "0550AE",
+  link: "0550AE",
+  operator: "0550AE",
+  params: "24292F",
+};
+
+/** Map a highlight.js className list to a color, if any scope is recognized. */
+function colorForScope(className: unknown): string | undefined {
+  if (!Array.isArray(className)) return undefined;
+  for (const cls of className) {
+    if (typeof cls !== "string") continue;
+    const key = cls.startsWith("hljs-") ? cls.slice(5) : cls;
+    if (CODE_COLORS[key]) return CODE_COLORS[key];
+  }
+  return undefined;
+}
+
+/** Flatten a highlight.js hast tree into colored tokens (in source order). */
+function flattenHast(node: HastNode, color: string | undefined, out: CodeToken[]): void {
+  if (node.type === "text") {
+    if (node.value) out.push({ text: node.value, color });
+    return;
+  }
+  const scopeColor =
+    node.type === "element" ? (colorForScope(node.properties?.className) ?? color) : color;
+  if (node.children) for (const child of node.children) flattenHast(child, scopeColor, out);
+}
+
+/**
+ * Syntax-highlight a fenced code block and split it into lines of colored
+ * tokens. Falls back to a single uncolored token per line for unknown or
+ * missing languages.
+ */
+function highlightCodeLines(value: string, lang?: string | null): CodeToken[][] {
+  let tokens: CodeToken[];
+  try {
+    if (lang && lowlight.registered(lang)) {
+      const tree = lowlight.highlight(lang, value) as unknown as { children: HastNode[] };
+      tokens = [];
+      for (const child of tree.children) flattenHast(child, undefined, tokens);
+    } else {
+      tokens = [{ text: value }];
+    }
+  } catch {
+    tokens = [{ text: value }];
+  }
+
+  const lines: CodeToken[][] = [[]];
+  for (const token of tokens) {
+    const parts = token.text.split("\n");
+    parts.forEach((part, i) => {
+      if (i > 0) lines.push([]);
+      if (part) lines[lines.length - 1]!.push({ text: part, color: token.color });
+    });
+  }
+  return lines;
 }
 
 /** Collect Heading 1-3 entries (excluding the TOC heading itself) for the contents list. */
