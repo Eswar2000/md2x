@@ -1,5 +1,5 @@
 {
-  "name": "md2x",
+  "name": "mdtox",
   "version": "0.1.0",
   "description": "Convert AI-generated Markdown into polished documents (docx today, more soon). Zero native dependencies, runs anywhere.",
   "type": "module",
