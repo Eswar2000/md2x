@@ -47,6 +47,7 @@ interface InlineStyle {
   underline?: boolean;
   subscript?: boolean;
   superscript?: boolean;
+  highlight?: boolean;
   code?: boolean;
   link?: boolean;
 }
@@ -633,6 +634,7 @@ class DocxRenderer {
       strike: style.strike,
       subScript: style.subscript,
       superScript: style.superscript,
+      highlight: style.highlight ? "yellow" : undefined,
       font: style.code ? this.theme.monoFont : undefined,
       size: style.code ? this.theme.bodySize - 2 : undefined,
       color: style.link ? this.theme.accentColor : undefined,
@@ -753,6 +755,8 @@ function applyTag(style: InlineStyle, name: string): InlineStyle {
     case "del":
     case "strike":
       return { ...style, strike: true };
+    case "mark":
+      return { ...style, highlight: true };
     default:
       return { ...style };
   }

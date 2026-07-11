@@ -96,6 +96,7 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 | `<u>underline</u>` | <u>Underlined</u> run |
 | `<sub>x</sub>` | Subscript (e.g. CO₂) |
 | `<sup>x</sup>` | Superscript (e.g. 2³) |
+| `<mark>text</mark>` | Highlighted (yellow) run |
 | `<br>` | Hard line break within a paragraph |
 | YAML frontmatter | Document metadata (title, author, subject, keywords) |
 
@@ -126,9 +127,9 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
   numbered **Notes** section at the point where the definitions appear (typically
   the end of the document). This keeps note text out of the middle of the page
   and works in every viewer. Click a marker to jump to its note.
-- **Underline, subscript, superscript.** Markdown has no native syntax for
-  these, so md2x understands the inline HTML tags `<u>`, `<sub>`, and `<sup>`
-  (they nest and combine with `**bold**`/`*italic*`).
+- **Underline, subscript, superscript, highlight.** Markdown has no native
+  syntax for these, so md2x understands the inline HTML tags `<u>`, `<sub>`,
+  `<sup>`, and `<mark>` (they nest and combine with `**bold**`/`*italic*`).
 - **Indentation.** Inside code blocks, tabs and spaces are preserved verbatim.
   In lists, indentation controls nesting depth.
 

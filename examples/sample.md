@@ -124,8 +124,8 @@ the number that most changes how a dough feels and how open the final crumb is.
 | 75%       | Soft but manageable | Everyday country bread       |
 | 85%       | Slack and sticky    | Open, rustic crumb           |
 
-Start nearer the top of the table while you are learning; a firmer dough is far
-more forgiving on the bench.
+Start nearer the top of the table while you are learning; <mark>a firmer dough is
+far more forgiving</mark> on the bench.
 
 ## Automating the Baker's Math
 
