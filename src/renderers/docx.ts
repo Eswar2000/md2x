@@ -262,6 +262,8 @@ class DocxRenderer {
   ): Paragraph[] {
     const out: Paragraph[] = [];
     let firstParagraphDone = false;
+    // Indent continuation content to line up under the item's first line.
+    const contentIndent = 360 * (depth + 1);
 
     for (const child of item.children) {
       if (child.type === "list") {
@@ -270,21 +272,29 @@ class DocxRenderer {
       }
       if (child.type === "paragraph") {
         const runs = this.renderInline(child.children, {});
-        const prefixed =
-          !firstParagraphDone && typeof item.checked === "boolean"
-            ? [new TextRun({ text: item.checked ? "\u2611 " : "\u2610 " }), ...runs]
-            : runs;
-        out.push(
-          new Paragraph({
-            children: prefixed,
-            numbering: {
-              reference:
-                ordered && orderedRef ? orderedRef : this.ensureBulletNumbering(),
-              level: depth,
-            },
-          }),
-        );
-        firstParagraphDone = true;
+        if (!firstParagraphDone) {
+          const prefixed =
+            typeof item.checked === "boolean"
+              ? [new TextRun({ text: item.checked ? "\u2611 " : "\u2610 " }), ...runs]
+              : runs;
+          out.push(
+            new Paragraph({
+              children: prefixed,
+              numbering: {
+                reference:
+                  ordered && orderedRef ? orderedRef : this.ensureBulletNumbering(),
+                level: depth,
+              },
+            }),
+          );
+          firstParagraphDone = true;
+        } else {
+          // Later paragraphs in the same item are continuation text: keep the
+          // indent but no second bullet/number.
+          out.push(
+            new Paragraph({ children: runs, indent: { left: contentIndent }, spacing: { after: 80 } }),
+          );
+        }
         continue;
       }
       // Fallback: render other block children (e.g. nested code) inline-ish.

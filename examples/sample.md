@@ -27,6 +27,7 @@ called out so you can adapt it to your own flour and climate.
 - [Hydration at a Glance](#hydration-at-a-glance)
 - [Automating the Baker's Math](#automating-the-bakers-math)
 - [When Things Go Wrong](#when-things-go-wrong)
+- [Flour, in Depth](#appendix-flour-in-depth)
 - [Further Reading](#further-reading)
 
 ## Why Bread Rises
@@ -80,6 +81,9 @@ care. Weigh them if you can — volume measurements for flour can vary by a thir
 - **A leaven** — either commercial yeast for speed or a sourdough starter for
   flavor and keeping quality.
 
+  A starter is just flour and water kept alive by regular feeding. If you bake
+  weekly, keep it in the fridge and refresh it the night before you mix.
+
 ### Equipment Checklist
 
 - [x] Digital scale that reads to the gram
@@ -92,7 +96,9 @@ care. Weigh them if you can — volume measurements for flour can vary by a thir
 
 The steps below assume a sourdough starter, but a teaspoon of instant yeast
 works too — just expect the timeline to shrink. Read the whole method once
-before you begin so nothing catches you by surprise.
+before you begin so nothing catches you by surprise — and if a loaf still
+disappoints, the [troubleshooting table](#when-things-go-wrong) covers the usual
+suspects.
 
 1. **Autolyse.** Combine the flour and most of the water and let it rest,
    covered, for 30–60 minutes. This head start lets the flour hydrate fully
@@ -113,13 +119,23 @@ before you begin so nothing catches you by surprise.
 > Tip: a cold overnight proof is optional but forgiving — it spreads the
 > schedule across two days and deepens the flavor.
 
+A typical weekend timeline looks like this:
+
+Friday, 8 p.m. — feed the starter
+<br>Saturday, 9 a.m. — mix, then start the folds
+<br>Saturday, 6 p.m. — shape and chill overnight
+<br>Sunday, 8 a.m. — bake and cool before slicing
+
+Bake until the crust is a deep, even amber — roughly this shade:
+![Target deep-amber crust color](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAYCAYAAABKtPtEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFESURBVFhH7dBFUgIAGIZhjqF4AUxsRQERTEwUA7DGdlQEO8Z2bMd2SLu7u7vblQfwCC4/B6/Bv3hn3vXDKBJafSu5FjDH1HzmD8M0X0YFPg0KfOjleNfJ8KaNx6smDi9DsXgejMHTgBSP/VI89EXjvjcKdz0S3HZLcNMVievOCFx1hOOyPQwXbaE4bw3BWYsYp81inDQF47gxCEcNgTisD8BBnT/2a/2wVyPCbrUIO1VCbFf6YqtCgM1yATbKfLBeysdaCQ+rxVysFHpjWe2FJRUHiwUcLCg9MZ/vgbk8d8zmumMmxw3T2a6YynLBZKYzJjKcMJ7uiLE0NkZT2RhJccBwsj2MSXYwJNpCn2ADncIaWjkLGhnrH4EACIAACIAACIAACIAACIAACIAACIAACIAACIAACMC8ANR85q9pzDEVzxJ/2kY1gcFjUq4AAAAASUVORK5CYII=)
+
 ## Hydration at a Glance
 
 *Hydration* is the weight of water expressed as a percentage of the flour. It is
 the number that most changes how a dough feels and how open the final crumb is.
 
 | Hydration | Dough feel          | Best suited to               |
-| --------- | ------------------- | ---------------------------- |
+| --------: | :-----------------: | ---------------------------- |
 | 65%       | Firm, easy to shape | Sandwich and beginner loaves |
 | 75%       | Soft but manageable | Everyday country bread       |
 | 85%       | Slack and sticky    | Open, rustic crumb           |
@@ -174,20 +190,50 @@ symptom you see to the cause worth checking first.
 A note on that last row: a scorched base looks alarming but is almost always
 cosmetic. Trim it, move the rack, and the next loaf will be fine.
 
+## Appendix: Flour, in Depth
+
+Flour is deceptively complex, and a little vocabulary goes a long way when you
+are comparing bags at the store.
+
+### Wheat Flours
+
+The everyday flours most bakers reach for, sorted roughly by protein.
+
+#### Bread Flour
+
+High in protein and built for structure, chew, and a strong rise.
+
+##### Protein Range
+
+Usually 12–14% protein — the extra gluten is what lets a lean dough hold its
+shape through a long ferment.
+
+###### A Note on Ash
+
+“Ash” is the mineral content left after a flour sample is burned away. Higher-ash
+flours carry more of the bran and germ, so they ferment a little faster and taste
+closer to whole wheat.
+
 ## Further Reading
 
 If you want to go deeper, three references are worth your time:
 
 - The [Wikipedia article on gluten](https://en.wikipedia.org/wiki/Gluten) for the
   protein chemistry in more detail.
-- King Arthur Baking's [flour guide](https://www.kingarthurbaking.com/) for how
-  milling changes behavior.
+- King Arthur Baking's [flour guide][ka] for how milling changes behavior.
+- The Perfect Loaf keeps a deep sourdough archive at
+  <https://www.theperfectloaf.com>.
 - Your own notebook — the single most useful reference is a log of what *your*
   flour and *your* kitchen actually do.
+
+[ka]: https://www.kingarthurbaking.com/
 
 [^temp]: Measure the internal temperature with an instant-read thermometer pushed
     into the center of the loaf; enriched doughs finish a few degrees lower than
     lean ones, so trust the reading over the clock.
+
+    If you do not own a thermometer, tap the base of the loaf: a hollow, drum-like
+    sound is the traditional sign that it is fully baked.
 
 [^windowpane]: Stretch a walnut-sized piece of dough slowly between your fingers.
     If it thins to a translucent sheet without tearing, the gluten is developed
@@ -195,5 +241,5 @@ If you want to go deeper, three references are worth your time:
 
 ---
 
-Written with `md2x`. Bake often, weigh everything, and trust your dough over the
-clock.
+Written with `md2x`.\
+Bake often, weigh everything, and trust your dough over the clock.
