@@ -33,6 +33,7 @@ One core engine, many surfaces:
   list items
 - GFM tables with per-column alignment
 - Fenced code blocks with **syntax highlighting** (37 languages via highlight.js)
+- LaTeX math (`$…$`, `$$…$$`) → native Word equations (OMML)
 - Rich blockquotes (lists, code, nested quotes) and GitHub-style callouts
   (`> [!NOTE|TIP|IMPORTANT|WARNING|CAUTION]`)
 - Image embedding — local paths, `http(s)` URLs, and `data:` URIs, auto-scaled
@@ -49,7 +50,7 @@ One core engine, many surfaces:
 2. [ ] PDF renderer
 3. [ ] PPTX renderer (`---` → slides)
 4. [ ] Mermaid diagram rendering
-5. [ ] LaTeX math
+5. ✅ LaTeX math
 6. ✅ Image embedding (local + remote)
 7. [ ] Custom template / branding support
 8. [ ] Web demo (drag-drop + live preview)
