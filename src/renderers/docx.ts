@@ -8,6 +8,7 @@ import {
   ExternalHyperlink,
   HeadingLevel,
   ImageRun,
+  ImportedXmlComponent,
   InternalHyperlink,
   LevelFormat,
   Packer,
@@ -38,6 +39,8 @@ import type {
 } from "mdast";
 import { visit } from "unist-util-visit";
 import { common, createLowlight } from "lowlight";
+import temml from "temml";
+import { mml2omml } from "mathml2omml";
 import type { DocMeta, Theme } from "../types.js";
 
 const lowlight = createLowlight(common);
@@ -156,6 +159,12 @@ class DocxRenderer {
     const out: Block[] = [];
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i]!;
+      // Display math (`$$…$$`) — remark-math nodes aren't in the mdast type
+      // unions, so match on the raw string type.
+      if ((node.type as string) === "math") {
+        out.push(this.renderMathBlock((node as unknown as { value: string }).value));
+        continue;
+      }
       // A heading titled "Table of Contents" is replaced by a genuine, native
       // Word TOC field. We seed it with cached entries (built from the Heading
       // 1-3 bookmarks) so it renders populated and clickable immediately — no
@@ -513,8 +522,22 @@ class DocxRenderer {
     ];
   }
 
+  /** Inline `$…$` math as an embedded Word equation, or code-styled text on failure. */
+  private renderMathInline(latex: string, style: InlineStyle): InlineChild {
+    return latexMathComponent(latex, false) ?? this.makeRun(latex, { ...style, code: true });
+  }
+
+  /** Display `$$…$$` math as a centered Word equation, or code-styled text on failure. */
+  private renderMathBlock(latex: string): Paragraph {
+    const child = latexMathComponent(latex, true) ?? this.makeRun(latex, { code: true });
+    return new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { before: 120, after: 120 },
+      children: [child],
+    });
+  }
+
   private renderCode(node: Code): Paragraph[] {
-    // Tokenize into colored segments, then lay out one shaded paragraph per line.
     const lines = highlightCodeLines(node.value, node.lang);
     return lines.map(
       (tokens, i) =>
@@ -602,6 +625,10 @@ class DocxRenderer {
     const current = () => stack[stack.length - 1]!;
 
     for (const node of nodes) {
+      if ((node.type as string) === "inlineMath") {
+        out.push(this.renderMathInline((node as unknown as { value: string }).value, current()));
+        continue;
+      }
       switch (node.type) {
         case "text":
           out.push(...this.textRuns(node.value, current()));
@@ -752,6 +779,38 @@ function isTocHeading(node: Heading): boolean {
 /** Word-safe bookmark name for the nth note in the generated Notes section. */
 function noteAnchor(n: number): string {
   return `_md2x_note_${n}`;
+}
+
+/**
+ * Convert a LaTeX string to an OMML (Office Math) XML fragment via MathML.
+ * Returns null if conversion fails, so callers can fall back to plain text.
+ */
+function latexToOmml(latex: string, display: boolean): string | null {
+  try {
+    const mathml = temml.renderToString(latex, { displayMode: display, throwOnError: false });
+    const omml = mml2omml(mathml);
+    return omml && omml.includes("<m:oMath") ? omml : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Build an embeddable OMML component from LaTeX. `fromXmlString` wraps parsed
+ * content in a root-less component that serializes as an invalid `<undefined>`
+ * element, so we unwrap to the actual `<m:oMath>` child.
+ */
+function latexMathComponent(latex: string, display: boolean): InlineChild | null {
+  const omml = latexToOmml(latex, display);
+  if (!omml) return null;
+  try {
+    const imported = ImportedXmlComponent.fromXmlString(omml);
+    const root = (imported as unknown as { root?: unknown[] }).root ?? [];
+    const inner = root.find((c) => c instanceof ImportedXmlComponent) ?? imported;
+    return inner as unknown as InlineChild;
+  } catch {
+    return null;
+  }
 }
 
 /** Coerce a metadata value to a trimmed string, or undefined if empty. */
