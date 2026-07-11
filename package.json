@@ -7,11 +7,28 @@
   "keywords": [
     "markdown",
     "docx",
+    "word",
+    "markdown-to-docx",
+    "docx-generator",
+    "ooxml",
+    "office",
     "convert",
+    "converter",
     "pandoc-alternative",
+    "table-of-contents",
+    "syntax-highlighting",
+    "latex",
+    "math",
+    "equations",
+    "footnotes",
+    "callouts",
+    "emoji",
     "ai",
     "export",
-    "document"
+    "document",
+    "cli",
+    "typescript",
+    "zero-dependencies"
   ],
   "bin": {
     "md2x": "./dist/cli.js"
