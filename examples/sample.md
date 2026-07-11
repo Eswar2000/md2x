@@ -69,6 +69,13 @@ a dough is ready.
 You need less equipment than most recipes imply, but the ingredients deserve
 care. Weigh them if you can — volume measurements for flour can vary by a third.
 
+> [!IMPORTANT]
+> Three variables dominate every loaf, in rough order of impact:
+>
+> 1. **Time** — under-fermenting is by far the most common mistake.
+> 2. **Temperature** — of both the dough and the oven.
+> 3. **Hydration** — how much water the flour is carrying.
+
 ### Core Ingredients
 
 - **Flour** — the backbone of the loaf.
@@ -100,6 +107,14 @@ before you begin so nothing catches you by surprise — and if a loaf still
 disappoints, the [troubleshooting table](#when-things-go-wrong) covers the usual
 suspects.
 
+> At heart, the method is just three rests with a little work between them:
+>
+> 1. **Autolyse** — flour and water get acquainted.
+> 2. **Bulk ferment** — the dough comes alive.
+> 3. **Final proof** — the shaped loaf relaxes before baking.
+>
+> Everything below is detail layered on those three rests.
+
 1. **Autolyse.** Combine the flour and most of the water and let it rest,
    covered, for 30–60 minutes. This head start lets the flour hydrate fully
    before any kneading.
@@ -116,8 +131,9 @@ suspects.
 5. **Proof and bake.** Chill overnight, then bake covered at 245&nbsp;°C for
    20 minutes and uncovered for another 20–25 until deeply browned.
 
-> Tip: a cold overnight proof is optional but forgiving — it spreads the
-> schedule across two days and deepens the flavor.
+> [!TIP]
+> A cold overnight proof is optional but forgiving — it spreads the schedule
+> across two days and deepens the flavor.
 
 A typical weekend timeline looks like this:
 
@@ -128,6 +144,11 @@ Friday, 8 p.m. — feed the starter
 
 Bake until the crust is a deep, even amber — roughly this shade:
 ![Target deep-amber crust color](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAYCAYAAABKtPtEAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFESURBVFhH7dBFUgIAGIZhjqF4AUxsRQERTEwUA7DGdlQEO8Z2bMd2SLu7u7vblQfwCC4/B6/Bv3hn3vXDKBJafSu5FjDH1HzmD8M0X0YFPg0KfOjleNfJ8KaNx6smDi9DsXgejMHTgBSP/VI89EXjvjcKdz0S3HZLcNMVievOCFx1hOOyPQwXbaE4bw3BWYsYp81inDQF47gxCEcNgTisD8BBnT/2a/2wVyPCbrUIO1VCbFf6YqtCgM1yATbKfLBeysdaCQ+rxVysFHpjWe2FJRUHiwUcLCg9MZ/vgbk8d8zmumMmxw3T2a6YynLBZKYzJjKcMJ7uiLE0NkZT2RhJccBwsj2MSXYwJNpCn2ADncIaWjkLGhnrH4EACIAACIAACIAACIAACIAACIAACIAACIAACIAACMC8ANR85q9pzDEVzxJ/2kY1gcFjUq4AAAAASUVORK5CYII=)
+
+> [!WARNING]
+> A Dutch oven at 245&nbsp;°C stays dangerously hot long after it leaves the
+> oven. Use dry mitts, keep children clear, and never bring a damp cloth near
+> the lid — trapped steam scalds instantly.
 
 ## Hydration at a Glance
 

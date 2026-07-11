@@ -89,7 +89,8 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 | `[text](https://…)` | External hyperlink |
 | `[text](#heading-title)` | **Internal link** that jumps to the matching heading |
 | A `## Table of Contents` heading | A **native Word Table of Contents** field, pre-populated so it shows immediately (Heading 1–3, dot leaders, clickable, updatable) |
-| `> quote` | Indented blockquote with a colored left bar |
+| `> quote` | Blockquote with a colored left bar that can hold **rich content** (lists, code, nested quotes), not just text |
+| `> [!NOTE]` / `[!TIP]` / `[!IMPORTANT]` / `[!WARNING]` / `[!CAUTION]` | **GitHub-style callout** — tinted box with a colored left bar and a labeled, icon-prefixed title |
 | `---` | Horizontal rule |
 | `![alt](path/or/url.png)` | **Embedded image** (PNG/JPG/GIF/BMP), auto-scaled to fit the page |
 | `text[^1]` + `[^1]: note` | **Clickable superscript marker** in the text, plus a numbered **Notes** section collected at the end of the document |
@@ -130,6 +131,11 @@ pane**, the table of contents is clickable, and lists carry proper numbering.
 - **Underline, subscript, superscript, highlight.** Markdown has no native
   syntax for these, so md2x understands the inline HTML tags `<u>`, `<sub>`,
   `<sup>`, and `<mark>` (they nest and combine with `**bold**`/`*italic*`).
+- **Blockquotes & callouts.** A `>` quote renders as a boxed region with a
+  colored left bar and may contain lists, code, or nested quotes. If its first
+  line is a GitHub alert marker (`> [!NOTE]`, `[!TIP]`, `[!IMPORTANT]`,
+  `[!WARNING]`, `[!CAUTION]`), it becomes a tinted callout with a colored,
+  icon-prefixed title.
 - **Indentation.** Inside code blocks, tabs and spaces are preserved verbatim.
   In lists, indentation controls nesting depth.
 

@@ -447,30 +447,63 @@ class DocxRenderer {
     return blocks;
   }
 
-  private renderBlockquote(node: Blockquote): Paragraph[] {
-    const inner = this.renderBlocks(node.children);
-    return inner
-      .filter((n): n is Paragraph => n instanceof Paragraph)
-      .map(
-        (_p, i) =>
-          new Paragraph({
-            children: (node.children[i]?.type === "paragraph"
-              ? this.renderInline(
-                  (node.children[i] as { children: PhrasingContent[] }).children,
-                  { italics: true },
-                )
-              : []) as InlineChild[],
-            indent: { left: 360 },
-            border: {
-              left: {
-                color: this.theme.quoteColor,
-                space: 12,
-                style: BorderStyle.SINGLE,
-                size: 18,
-              },
-            },
-          }),
+  /**
+   * Blockquotes render as a single-cell table with a colored left bar so they
+   * can hold rich content (lists, code, nested quotes), not just paragraphs.
+   * A leading `[!NOTE|TIP|IMPORTANT|WARNING|CAUTION]` line turns the quote into
+   * a GitHub-style callout: tinted background plus a colored, labeled title.
+   */
+  private renderBlockquote(node: Blockquote): Block[] {
+    const callout = detectCallout(node);
+    const bodyNodes = callout ? callout.bodyChildren : node.children;
+    const inner = this.renderBlocks(bodyNodes).filter(
+      (n): n is Paragraph | Table => n instanceof Paragraph || n instanceof Table,
+    );
+    const meta = callout ? CALLOUTS[callout.type]! : undefined;
+    const barColor = meta ? meta.color : this.theme.quoteColor;
+
+    const cellChildren: (Paragraph | Table)[] = [];
+    if (meta) {
+      cellChildren.push(
+        new Paragraph({
+          spacing: { after: 80 },
+          children: [new TextRun({ text: `${meta.icon} ${meta.label}`, bold: true, color: meta.color })],
+        }),
       );
+    }
+    cellChildren.push(...(inner.length ? inner : [new Paragraph({ children: [] })]));
+
+    const noBorder = { style: BorderStyle.NONE, size: 0, color: "auto" } as const;
+    const cell = new TableCell({
+      children: cellChildren,
+      shading: meta ? { type: ShadingType.CLEAR, color: "auto", fill: meta.fill } : undefined,
+      margins: { left: 220, right: 160, top: 80, bottom: 80 },
+      borders: {
+        top: noBorder,
+        bottom: noBorder,
+        right: noBorder,
+        left: { style: BorderStyle.SINGLE, size: 24, color: barColor },
+      },
+    });
+
+    return [
+      new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: {
+          top: noBorder,
+          bottom: noBorder,
+          left: noBorder,
+          right: noBorder,
+          insideHorizontal: noBorder,
+          insideVertical: noBorder,
+        },
+        rows: [new TableRow({ children: [cell] })],
+      }),
+      // A table carries no "space after", so add a small spacer paragraph to
+      // separate the box from following content (and to keep two adjacent
+      // callouts from merging into a single table).
+      new Paragraph({ children: [new TextRun({ text: "", size: 8 })], spacing: { before: 0, after: 0 } }),
+    ];
   }
 
   private renderCode(node: Code): Paragraph[] {
@@ -701,6 +734,42 @@ function isTocHeading(node: Heading): boolean {
 /** Word-safe bookmark name for the nth note in the generated Notes section. */
 function noteAnchor(n: number): string {
   return `_md2x_note_${n}`;
+}
+
+/** GitHub-style callout styles keyed by alert type. Colors follow GitHub's palette. */
+const CALLOUTS: Record<string, { label: string; icon: string; color: string; fill: string }> = {
+  note: { label: "Note", icon: "\u2139\uFE0F", color: "0969DA", fill: "DDF4FF" },
+  tip: { label: "Tip", icon: "\uD83D\uDCA1", color: "1A7F37", fill: "DAFBE1" },
+  important: { label: "Important", icon: "\u2757", color: "8250DF", fill: "FBEFFF" },
+  warning: { label: "Warning", icon: "\u26A0\uFE0F", color: "9A6700", fill: "FFF8C5" },
+  caution: { label: "Caution", icon: "\uD83D\uDED1", color: "CF222E", fill: "FFEBE9" },
+};
+
+/**
+ * Detect a GitHub alert marker (`[!NOTE]` etc.) at the start of a blockquote and
+ * return the callout type plus the body with the marker stripped out.
+ */
+function detectCallout(
+  node: Blockquote,
+): { type: string; bodyChildren: RootContent[] } | null {
+  const first = node.children[0];
+  if (!first || first.type !== "paragraph") return null;
+  const lead = first.children[0];
+  if (!lead || lead.type !== "text") return null;
+  const match = /^\[!(\w+)\]\s*/.exec(lead.value);
+  if (!match) return null;
+  const type = match[1]!.toLowerCase();
+  if (!CALLOUTS[type]) return null;
+
+  const remainder = lead.value.slice(match[0].length);
+  const leadInline: PhrasingContent[] = remainder
+    ? [{ ...lead, value: remainder }, ...first.children.slice(1)]
+    : first.children.slice(1);
+  const rebuiltFirst = leadInline.length ? [{ ...first, children: leadInline }] : [];
+  return {
+    type,
+    bodyChildren: [...rebuiltFirst, ...node.children.slice(1)] as RootContent[],
+  };
 }
 
 /** Collect Heading 1-3 entries (excluding the TOC heading itself) for the contents list. */
