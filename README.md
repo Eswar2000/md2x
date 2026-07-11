@@ -9,8 +9,8 @@ polished documents — starting with `.docx` — with **zero native dependencies
 ## Install
 
 ```bash
-npm install mdtox        # library
-npm install -g mdtox     # global CLI (provides the `md2x` command)
+npm install @eswar2000/md2x        # library
+npm install -g @eswar2000/md2x     # global CLI (provides the `md2x` command)
 ```
 
 ## CLI
@@ -41,7 +41,7 @@ md2x --list-themes
 ## Library
 
 ```ts
-import { convert } from "mdtox";
+import { convert } from "@eswar2000/md2x";
 import { writeFile } from "node:fs/promises";
 
 const markdown = "# Hello\n\nThis is **md2x**.";
@@ -75,7 +75,7 @@ Point your client at the server; `npx` fetches it, so there's nothing to install
 ```jsonc
 {
   "mcpServers": {
-    "md2x": { "command": "npx", "args": ["-y", "--package", "mdtox", "md2x-mcp"] }
+    "md2x": { "command": "npx", "args": ["-y", "--package", "@eswar2000/md2x", "md2x-mcp"] }
   }
 }
 ```

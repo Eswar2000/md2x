@@ -1,6 +1,9 @@
 {
-  "name": "mdtox",
+  "name": "@eswar2000/md2x",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Convert AI-generated Markdown into polished documents (docx today, more soon). Zero native dependencies, runs anywhere.",
   "type": "module",
   "license": "MIT",
