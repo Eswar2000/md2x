@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write # required for npm provenance
+  id-token: write # required for OIDC trusted publishing + provenance
 
 jobs:
   publish:
@@ -19,12 +19,12 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org
           cache: npm
+      # Trusted Publishing (OIDC) requires npm >= 11.5.1; Node 20 ships npm 10.
+      - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run lint
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run build
       - run: npm test
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish --access public
