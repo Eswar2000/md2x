@@ -19,6 +19,7 @@ import {
   TableOfContents,
   TableRow,
   TextRun,
+  UnderlineType,
   WidthType,
   type ISectionOptions,
 } from "docx";
@@ -55,6 +56,8 @@ interface InlineStyle {
   superscript?: boolean;
   highlight?: boolean;
   code?: boolean;
+  abbreviation?: boolean;
+  small?: boolean;
   link?: boolean;
 }
 
@@ -731,9 +734,14 @@ class DocxRenderer {
       superScript: style.superscript,
       highlight: style.highlight ? "yellow" : undefined,
       font: style.code ? this.theme.monoFont : undefined,
-      size: style.code ? this.theme.bodySize - 2 : undefined,
+      size: style.code || style.small ? this.theme.bodySize - 2 : undefined,
       color: style.link ? this.theme.accentColor : undefined,
-      underline: style.link || style.underline ? {} : undefined,
+      underline:
+        style.link || style.underline
+          ? {}
+          : style.abbreviation
+            ? { type: UnderlineType.DOTTED }
+            : undefined,
       shading: style.code
         ? { type: ShadingType.CLEAR, fill: this.theme.codeBackground, color: "auto" }
         : undefined,
@@ -1019,9 +1027,9 @@ interface InlineTag {
   selfClosing: boolean;
 }
 
-/** Parse a lone inline HTML tag like `<sup>`, `</u>` or `<br/>`. */
+/** Parse an inline HTML tag like `<sup>`, `</u>` or `<abbr title="...">`. */
 function parseInlineTag(value: string): InlineTag | null {
-  const match = /^<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)\s*(\/?)\s*>$/.exec(value.trim());
+  const match = /^<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9:-]*)(?:\s+[^<>]*?)?\s*(\/?)>$/.exec(value.trim());
   if (!match) return null;
   return {
     closing: match[1] === "/",
@@ -1052,6 +1060,14 @@ function applyTag(style: InlineStyle, name: string): InlineStyle {
       return { ...style, strike: true };
     case "mark":
       return { ...style, highlight: true };
+    case "kbd":
+      return { ...style, code: true };
+    case "abbr":
+      return { ...style, abbreviation: true };
+    case "small":
+      return { ...style, small: true };
+    case "cite":
+      return { ...style, italics: true };
     default:
       return { ...style };
   }

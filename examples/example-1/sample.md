@@ -71,6 +71,10 @@ a dough is ready.
 
 You need less equipment than most recipes imply, but the ingredients deserve
 care. Weigh them if you can — volume measurements for flour can vary by a third.
+For a digital workflow, set a timer and press <kbd>Start</kbd>. The formulas below
+use <abbr title="baker's percentage">BP</abbr>; classic references such as
+<cite>Tartine Bread</cite> use the same convention. <small>All temperatures and
+timings in this guide are approximate.</small>
 
 > [!IMPORTANT]
 > Three variables dominate every loaf, in rough order of impact:

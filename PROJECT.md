@@ -27,7 +27,8 @@ renderer turns the messy, AI-flavored Markdown that LLMs produce into native
 Word constructs across:
 
 - **Text & inline formatting** — bold, italic, strikethrough, inline code,
-  underline, subscript, superscript, highlight, and `:emoji:` shortcodes
+  underline, subscript, superscript, highlight, keyboard input, abbreviations,
+  small text, citations, and `:emoji:` shortcodes
 - **Document structure** — headings 1–6 (real Word styles), paragraphs, line
   breaks, and horizontal rules
 - **Lists** — ordered, unordered, nested, mixed, and task lists

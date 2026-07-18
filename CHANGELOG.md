@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Inline HTML styling for `<kbd>`, `<abbr>`, `<small>`, and `<cite>`, including
+  attributes on opening tags such as `<abbr title="…">`.
 - Developer tooling: ESLint (flat config) + Prettier, with `lint`, `lint:fix`,
   `format`, and `format:check` scripts.
 - GitHub Actions CI (lint, format check, typecheck, build, and tests on Node

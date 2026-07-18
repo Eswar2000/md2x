@@ -88,6 +88,10 @@ field, lists carry proper numbering, and equations are editable Word math.
 | `<u>underline</u>` | Underlined run |
 | `<sub>x</sub>` / `<sup>x</sup>` | Subscript / superscript (e.g. CO₂, 2³) |
 | `<mark>text</mark>` | Yellow highlight |
+| `<kbd>key</kbd>` | Monospaced run with light shading |
+| `<abbr title="…">term</abbr>` | Dotted-underlined abbreviation |
+| `<small>text</small>` | Reduced-size run |
+| `<cite>source</cite>` | Italic citation |
 | `<br>` | Hard line break within a paragraph |
 | `:emoji:` | Unicode emoji (`:rocket:` → 🚀) |
 | `$inline math$` | Inline, editable Word equation (LaTeX) |
@@ -174,9 +178,9 @@ unknown or unlabeled blocks render as plain monospace.
 - **Math** — LaTeX is converted through MathML to OMML, producing real, editable
   Word equations. Unsupported LaTeX degrades to monospaced text instead of
   failing.
-- **Inline HTML** — Markdown has no syntax for underline, sub/superscript or
-  highlight, so md2x recognizes `<u>`, `<sub>`, `<sup>` and `<mark>`; they nest
-  and combine with `**bold**` / `*italic*`.
+- **Inline HTML** — md2x recognizes `<u>`, `<sub>`, `<sup>`, `<mark>`, `<kbd>`,
+  `<abbr>`, `<small>`, and `<cite>`; attributes such as `<abbr title="…">` are
+  accepted, and the tags nest and combine with `**bold**` / `*italic*`.
 
 ## Examples
 

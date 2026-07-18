@@ -185,6 +185,8 @@ describe("convert -> docx features", () => {
       "\n",
     ),
     "inline formatting": "**b** *i* ~~s~~ `c` <u>u</u> <sub>2</sub> <sup>3</sup> <mark>m</mark>",
+    "extra inline HTML tags":
+      '<kbd>Ctrl</kbd> <abbr title="HyperText Markup Language">HTML</abbr> <small>fine print</small> <cite>source</cite>',
     "hard breaks": "line one\\\nline two<br>line three",
     "external and internal links": "[out](https://example.com) and [in](#h2)\n\n## h2",
     "nested and mixed lists": [
