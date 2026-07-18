@@ -1,5 +1,10 @@
 # md2x
 
+[![npm version](https://img.shields.io/npm/v/@eswar2000/md2x)](https://www.npmjs.com/package/@eswar2000/md2x)
+[![CI](https://github.com/Eswar2000/md2x/actions/workflows/ci.yml/badge.svg)](https://github.com/Eswar2000/md2x/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/@eswar2000/md2x)](https://github.com/Eswar2000/md2x/blob/main/LICENSE)
+[![downloads](https://img.shields.io/npm/dm/@eswar2000/md2x)](https://www.npmjs.com/package/@eswar2000/md2x)
+
 **Markdown to everything.** Convert the Markdown your AI assistant produces into
 polished documents — starting with `.docx`. Every dependency is **pure
 JavaScript**, so there are **no native dependencies** — nothing to compile and no
