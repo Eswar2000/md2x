@@ -1,6 +1,6 @@
 {
   "name": "md2x",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Convert AI-generated Markdown into polished documents (docx today, more soon). Zero native dependencies, runs anywhere.",
   "type": "module",
   "license": "MIT",

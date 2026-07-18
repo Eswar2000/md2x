@@ -1,10 +1,12 @@
 # md2x
 
 **Markdown to everything.** Convert the Markdown your AI assistant produces into
-polished documents — starting with `.docx` — with **zero native dependencies**
-(no pandoc, no LaTeX, no headless browser).
+polished documents — starting with `.docx`. Every dependency is **pure
+JavaScript**, so there are **no native dependencies** — nothing to compile and no
+system binaries (no pandoc, no LaTeX, no headless browser). It runs anywhere Node
+does: a laptop, a serverless function, or an AI agent sandbox.
 
-> See [PROJECT.md](PROJECT.md) for the vision, architecture, and roadmap.
+> See [PROJECT.md](https://github.com/Eswar2000/md2x/blob/main/PROJECT.md) for the vision, architecture, and roadmap.
 
 ## Install
 
@@ -173,16 +175,16 @@ unknown or unlabeled blocks render as plain monospace.
 
 ## Examples
 
-Three self-contained documents live under [`examples/`](examples), each focused
+Three self-contained documents live under [`examples/`](https://github.com/Eswar2000/md2x/tree/main/examples), each focused
 on a different slice of the feature set. Each folder holds the source `.md` and a
 converted `.docx`.
 
-- [**example-1** — the main sample](examples/example-1/sample.md): exercises the
+- [**example-1** — the main sample](https://github.com/Eswar2000/md2x/blob/main/examples/example-1/sample.md): exercises the
   majority of components (headings, lists, tables, callouts, images, footnotes,
   the table of contents, and inline formatting).
-- [**example-2** — code-oriented](examples/example-2/rate-limiting.md): a
+- [**example-2** — code-oriented](https://github.com/Eswar2000/md2x/blob/main/examples/example-2/rate-limiting.md): a
   code-heavy guide that shows off syntax highlighting across many languages.
-- [**example-3** — math-oriented](examples/example-3/special-relativity.md): a
+- [**example-3** — math-oriented](https://github.com/Eswar2000/md2x/blob/main/examples/example-3/special-relativity.md): a
   science write-up centered on inline and display equations.
 
 Convert any of them:
@@ -204,4 +206,4 @@ npm run typecheck  # type-only check
 
 ## License
 
-MIT © Eswar V — see [LICENSE](LICENSE).
+MIT © Eswar V — see [LICENSE](https://github.com/Eswar2000/md2x/blob/main/LICENSE).
