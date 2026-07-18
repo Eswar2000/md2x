@@ -3,13 +3,7 @@ import { renderDocx } from "./renderers/docx.js";
 import { resolveTheme } from "./themes.js";
 import type { ConvertOptions, ConvertResult, OutputFormat } from "./types.js";
 
-export type {
-  ConvertOptions,
-  ConvertResult,
-  DocMeta,
-  OutputFormat,
-  Theme,
-} from "./types.js";
+export type { ConvertOptions, ConvertResult, DocMeta, OutputFormat, Theme } from "./types.js";
 export { themes, DEFAULT_THEME } from "./themes.js";
 
 const EXTENSIONS: Record<OutputFormat, string> = {

@@ -36,7 +36,9 @@ function textContent(node: unknown): string {
 
 describe("parseMarkdown - metadata", () => {
   it("extracts standard frontmatter fields", () => {
-    const md = ["---", "title: My Report", "author: Ada", "subject: Q3", "---", "", "Body."].join("\n");
+    const md = ["---", "title: My Report", "author: Ada", "subject: Q3", "---", "", "Body."].join(
+      "\n",
+    );
     const { meta } = parseMarkdown(md);
 
     expect(meta.title).toBe("My Report");
@@ -59,7 +61,9 @@ describe("parseMarkdown - metadata", () => {
   });
 
   it("preserves custom frontmatter keys", () => {
-    const md = ["---", "title: T", "category: Baking", "difficulty: Hard", "---", "", "x"].join("\n");
+    const md = ["---", "title: T", "category: Baking", "difficulty: Hard", "---", "", "x"].join(
+      "\n",
+    );
     const { meta } = parseMarkdown(md);
 
     expect(meta.category).toBe("Baking");
@@ -177,7 +181,9 @@ describe("convert -> docx output", () => {
 
 describe("convert -> docx features", () => {
   const cases: Record<string, string> = {
-    "all heading levels": ["# h1", "## h2", "### h3", "#### h4", "##### h5", "###### h6"].join("\n"),
+    "all heading levels": ["# h1", "## h2", "### h3", "#### h4", "##### h5", "###### h6"].join(
+      "\n",
+    ),
     "inline formatting": "**b** *i* ~~s~~ `c` <u>u</u> <sub>2</sub> <sup>3</sup> <mark>m</mark>",
     "hard breaks": "line one\\\nline two<br>line three",
     "external and internal links": "[out](https://example.com) and [in](#h2)\n\n## h2",

@@ -251,11 +251,7 @@ class DocxRenderer {
     });
   }
 
-  private renderList(
-    node: List,
-    depth: number,
-    inheritedOrderedRef?: string,
-  ): Paragraph[] {
+  private renderList(node: List, depth: number, inheritedOrderedRef?: string): Paragraph[] {
     const ordered = Boolean(node.ordered);
     let orderedRef = inheritedOrderedRef;
     if (ordered && !orderedRef) {
@@ -297,8 +293,7 @@ class DocxRenderer {
             new Paragraph({
               children: prefixed,
               numbering: {
-                reference:
-                  ordered && orderedRef ? orderedRef : this.ensureBulletNumbering(),
+                reference: ordered && orderedRef ? orderedRef : this.ensureBulletNumbering(),
                 level: depth,
               },
             }),
@@ -308,13 +303,19 @@ class DocxRenderer {
           // Later paragraphs in the same item are continuation text: keep the
           // indent but no second bullet/number.
           out.push(
-            new Paragraph({ children: runs, indent: { left: contentIndent }, spacing: { after: 80 } }),
+            new Paragraph({
+              children: runs,
+              indent: { left: contentIndent },
+              spacing: { after: 80 },
+            }),
           );
         }
         continue;
       }
       // Fallback: render other block children (e.g. nested code) inline-ish.
-      out.push(...(this.renderBlocks([child]).filter((n) => n instanceof Paragraph) as Paragraph[]));
+      out.push(
+        ...(this.renderBlocks([child]).filter((n) => n instanceof Paragraph) as Paragraph[]),
+      );
     }
     return out;
   }
@@ -341,9 +342,7 @@ class DocxRenderer {
       type: img.type,
       data: img.data,
       transformation: { width: img.width, height: img.height },
-      altText: node.alt
-        ? { name: node.alt, title: node.alt, description: node.alt }
-        : undefined,
+      altText: node.alt ? { name: node.alt, title: node.alt, description: node.alt } : undefined,
     });
   }
 
@@ -456,7 +455,10 @@ class DocxRenderer {
       );
       for (let i = 1; i < paras.length; i++) {
         blocks.push(
-          new Paragraph({ indent: { left: 360 }, children: this.renderInline(paras[i]!.children, {}) }),
+          new Paragraph({
+            indent: { left: 360 },
+            children: this.renderInline(paras[i]!.children, {}),
+          }),
         );
       }
     });
@@ -483,7 +485,9 @@ class DocxRenderer {
       cellChildren.push(
         new Paragraph({
           spacing: { after: 80 },
-          children: [new TextRun({ text: `${meta.icon} ${meta.label}`, bold: true, color: meta.color })],
+          children: [
+            new TextRun({ text: `${meta.icon} ${meta.label}`, bold: true, color: meta.color }),
+          ],
         }),
       );
     }
@@ -518,7 +522,10 @@ class DocxRenderer {
       // A table carries no "space after", so add a small spacer paragraph to
       // separate the box from following content (and to keep two adjacent
       // callouts from merging into a single table).
-      new Paragraph({ children: [new TextRun({ text: "", size: 8 })], spacing: { before: 0, after: 0 } }),
+      new Paragraph({
+        children: [new TextRun({ text: "", size: 8 })],
+        spacing: { before: 0, after: 0 },
+      }),
     ];
   }
 
@@ -860,9 +867,7 @@ const CALLOUTS: Record<string, { label: string; icon: string; color: string; fil
  * Detect a GitHub alert marker (`[!NOTE]` etc.) at the start of a blockquote and
  * return the callout type plus the body with the marker stripped out.
  */
-function detectCallout(
-  node: Blockquote,
-): { type: string; bodyChildren: RootContent[] } | null {
+function detectCallout(node: Blockquote): { type: string; bodyChildren: RootContent[] } | null {
   const first = node.children[0];
   if (!first || first.type !== "paragraph") return null;
   const lead = first.children[0];
@@ -1108,7 +1113,13 @@ function imageMeta(
       }
       const marker = data[offset + 1]!;
       // Start-of-frame markers carry the dimensions; skip standalone markers.
-      if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      if (
+        marker >= 0xc0 &&
+        marker <= 0xcf &&
+        marker !== 0xc4 &&
+        marker !== 0xc8 &&
+        marker !== 0xcc
+      ) {
         return {
           type: "jpg",
           height: data.readUInt16BE(offset + 5),
