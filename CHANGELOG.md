@@ -7,15 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-07-18
+
 ### Added
 
 - Inline HTML styling for `<kbd>`, `<abbr>`, `<small>`, and `<cite>`, including
   attributes on opening tags such as `<abbr title="…">`.
+- Restored the `md2x-mcp` binary (MCP server exposing `create_docx` and
+  `list_themes`), which was unintentionally dropped from the published package.
 - Developer tooling: ESLint (flat config) + Prettier, with `lint`, `lint:fix`,
   `format`, and `format:check` scripts.
-- GitHub Actions CI (lint, format check, typecheck, build, and tests on Node
-  18/20/22) and a tag-triggered release workflow that publishes to npm with
-  provenance.
+- GitHub Actions CI (lint, format check, typecheck, build, and tests) and a
+  tag-triggered release workflow that publishes to npm with provenance.
+
+### Fixed
+
+- `md2x --list-themes` and `md2x --version` no longer require an input argument.
+- The CLI now reports the real package version instead of a hard-coded `0.1.0`.
+- Default output is written next to the input file, matching the documented
+  behavior, instead of the current working directory.
+- README install and import instructions now use the scoped package name
+  `@eswar2000/md2x`.
+
+### Changed
+
+- CI now runs on Node 20/22/24 (ESLint 10 requires Node 20.19+), and the release
+  workflow runs the full verification suite before publishing.
+- Removed the inaccurate `zero-dependencies` keyword and the unused
+  `mdast-util-to-string` dependency.
+
 
 ## [0.1.1] - 2026-07-18
 

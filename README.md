@@ -16,8 +16,8 @@ does: a laptop, a serverless function, or an AI agent sandbox.
 ## Install
 
 ```bash
-npm install md2x        # library
-npm install -g md2x     # global CLI
+npm install @eswar2000/md2x        # library
+npm install -g @eswar2000/md2x     # global CLI
 ```
 
 ## CLI
@@ -48,7 +48,7 @@ md2x --list-themes
 ## Library
 
 ```ts
-import { convert } from "md2x";
+import { convert } from "@eswar2000/md2x";
 import { writeFile } from "node:fs/promises";
 
 const markdown = "# Hello\n\nThis is **md2x**.";
@@ -68,6 +68,26 @@ title: Quarterly Report
 author: Ada Lovelace
 keywords: finance, q3
 ---
+```
+
+## MCP server
+
+md2x ships an [MCP](https://modelcontextprotocol.io) server (`md2x-mcp`) so any
+MCP-capable AI client can turn the Markdown it writes into a `.docx` on demand.
+It exposes two tools: `create_docx` (convert Markdown and save a Word file) and
+`list_themes`.
+
+Point your client at the `md2x-mcp` binary over stdio:
+
+```json
+{
+  "mcpServers": {
+    "md2x": {
+      "command": "npx",
+      "args": ["-y", "--package", "@eswar2000/md2x", "md2x-mcp"]
+    }
+  }
+}
 ```
 
 ## Supported Markdown
